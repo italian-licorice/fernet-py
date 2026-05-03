@@ -47,9 +47,28 @@ On the server side, the receiver can use this token to verify whether it's
 legit:
 
 ```python
-verifer = fernet.verifier(secret, token)
+verifier = fernet.verifier(secret, token)
 if verifier.valid():
     operate_on(verifier.message) # the original, decrypted message
+```
+
+
+### Demo
+
+```python
+Python 2.7.18 (v2.7.18:8d21aa21f2, Apr 20 2020, 13:25:05) [MSC v.1500 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import os
+>>> import fernet
+>>> secret = os.urandom(32) # pseudo-random 32 bytes, needs to be 32 bytes in length
+>>> token = fernet.generate(secret, 'scottp@heroku.com')
+>>> token
+'gAAAAABp95bqUC-v-Nu3lYtV2ETSB5zaGu00KQmNckaxY90E5vDKqwg237h8mNvg5gUz-synkFYAfmWeRgo_Yyi-D9ZzpbJgn523m9PwKx3YYEQbrEFEvIw='
+>>> verifier = fernet.verifier(secret, token)
+>>> if verifier.valid():
+...     print(verifier.message) # the original, decrypted message
+...
+scottp@heroku.com
 ```
 
 ### Global configuration
