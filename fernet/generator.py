@@ -2,6 +2,9 @@ __author__ = 'spersinger'
 
 from .token import Token
 
+import six
+
+
 class Generator:
     def __init__(self, secret=None, message=None, iv=None, now=None):
         """Internal: Initializes a generator.
@@ -15,7 +18,7 @@ class Generator:
         """Internal: generates a secret token
         """
         message = self.message
-        if isinstance(message, unicode):
+        if isinstance(message, six.text_type):
             message = message.encode('utf8')
 
         token = Token.generate(secret = self.secret,

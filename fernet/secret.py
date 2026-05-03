@@ -3,11 +3,14 @@
 
 import base64
 
+import six
+
+
 class Secret:
     class InvalidSecret(RuntimeError): pass
 
     def __init__(self, secret):
-        if isinstance(secret, unicode):
+        if isinstance(secret, six.text_type):
             secret = secret.encode('utf8')
 
         if len(secret) == 32:

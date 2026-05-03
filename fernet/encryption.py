@@ -1,6 +1,9 @@
 __author__ = 'spersinger'
 import os
 
+import six
+
+
 try:
     import M2Crypto
     from M2Crypto.EVP import Cipher, HMAC
@@ -21,7 +24,7 @@ class Encryption:
         if iv is None:
             iv = os.urandom(16)
 
-        if isinstance(message, unicode):
+        if isinstance(message, six.text_type):
             message = message.encode('utf8')
         if 'M2Crypto' in globals():
             return Encryption.m2crypto_encrypt(message, key, iv)

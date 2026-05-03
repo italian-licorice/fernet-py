@@ -2,6 +2,9 @@ __author__ = 'spersinger'
 
 from .token import Token
 
+import six
+
+
 class Verifier:
     class UnknownTokenVersion(RuntimeError): pass
 
@@ -22,4 +25,4 @@ class Verifier:
         return repr(self)
 
     def __str__(self):
-        return unicode(self)
+        return six.text_type(self)

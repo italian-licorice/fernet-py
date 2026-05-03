@@ -9,6 +9,10 @@ from .bit_packing import BitPacking
 from .configuration import Configuration
 from .encryption import Encryption
 from .secret import Secret
+from six.moves import reduce
+
+import six
+
 
 class Token:
     class InvalidToken(ValueError):
@@ -32,7 +36,7 @@ class Token:
         return self.token
 
     def __str__(self):
-        return unicode(self)
+        return six.text_type(self)
 
     def valid(self):
         self.validate()
@@ -44,7 +48,7 @@ class Token:
                 return Encryption.decrypt(key = self.secret.encryption_key,
                                          ciphertext = self.encrypted_message,
                                          iv = self.iv)
-            except Exception, e:
+            except Exception as e:
                 raise Token.InvalidToken("bad decrypt: %s" % str(e))
         else:
             raise Token.InvalidToken(", ".join(["%s %s" % (key,msg) for key,msg in self.errors]))
@@ -79,7 +83,7 @@ class Token:
     def decoded_token(self):
         if not hasattr(self, '__decoded_token'):
             token = self.token
-            if isinstance(token, unicode):
+            if isinstance(token, six.text_type):
                 token = token.encode('utf8')
             self.__decoded_token = base64.urlsafe_b64decode(token)
         return self.__decoded_token
