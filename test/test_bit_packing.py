@@ -2,6 +2,7 @@ __author__ = 'spersinger'
 import unittest
 
 from should_dsl import should
+import six
 import test_helper
 
 import fernet
@@ -24,7 +25,7 @@ class TestBitPacking(unittest.TestCase):
         return "".join([chr(b) for b in bytea])
 
     def test_it_encodes_and_decodes_properly(self):
-        for value, bytes in TestBitPacking.VALUE_TO_BYTES.iteritems():
+        for value, bytes in six.iteritems(TestBitPacking.VALUE_TO_BYTES):
             pretty_bytes = self.pretty(bytes).rjust(20)
             bytestr = self.bytestr(bytes)
             BitPacking.pack_int64_bigendian(value) |should| equal_to(bytestr)
