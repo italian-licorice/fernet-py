@@ -12,5 +12,5 @@ __docformat__ = "restructuredtext"
 # -eof meta-
 
 from .fernet import generate, verifier
-from token import Token
-from configuration import Configuration
+from .token import Token
+from .configuration import Configuration

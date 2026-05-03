@@ -2,6 +2,7 @@ __author__ = 'spersinger'
 import base64
 import time
 import struct
+import sys
 import traceback
 import pdb
 
@@ -13,6 +14,8 @@ from six.moves import reduce
 
 import six
 
+if sys.version_info[0] >= 3:
+    long = int  # review if six can handle this? six.integer_types does not look appropriate for function usage
 
 class Token:
     class InvalidToken(ValueError):

@@ -10,6 +10,9 @@ import test_helper
 
 import fernet
 
+if sys.version_info[0] >= 3:
+    long = int  # review if six can handle this? six.integer_types does not look appropriate for function usage
+
 class TestFernet(unittest.TestCase):
     def setUp(self):
         self.secret = 'JrdICDH6x3M7duQeM8dJEMK4Y5TkBIsYDw1lPy35RiY='

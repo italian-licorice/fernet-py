@@ -15,6 +15,9 @@ sys.path.append(os.path.join(os.path.dirname(__file__), "../.."))
 
 from fernet.verifier import Verifier, Token
 
+if sys.version_info[0] >= 3:
+    long = int  # review if six can handle this? six.integer_types does not look appropriate for function usage
+
 class TestVerifySpec(unittest.TestCase):
     def test_it_verifies_tokens_according_to_the_spec(self):
         path = os.path.join(os.path.dirname(__file__), "../fernet-spec/verify.json")

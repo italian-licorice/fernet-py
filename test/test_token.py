@@ -2,6 +2,7 @@ __author__ = 'spersinger'
 
 import unittest
 import base64
+import sys
 import time
 
 from should_dsl import should
@@ -9,6 +10,9 @@ import test_helper
 
 from fernet.token import Token
 from fernet.encryption import Encryption
+
+if sys.version_info[0] >= 3:
+    long = int  # review if six can handle this? six.integer_types does not look appropriate for function usage
 
 class TestToken(unittest.TestCase):
     def setUp(self):
