@@ -13,4 +13,4 @@ class BitPacking:
     @staticmethod
     def unpack_int64_bigendian(bytestr):
         bytes = bytearray(bytestr)
-        return reduce(lambda val, (index, byte): val | (byte << (index*8)), enumerate(reversed(bytes)), 0)
+        return reduce(lambda val, p: (lambda index, byte: val | (byte << (index * 8)))(*p), enumerate(reversed(bytes)), 0)
