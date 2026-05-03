@@ -19,8 +19,6 @@ pip install fernet  # TODO review, https://github.com/heroku/fernet-py/issues/1 
 
 From local source checkout
 
-TODO doc submodule checkout
-
     python -m pip install -r requirements.txt
     # pip install pycryptodome==3.7.2  # Needed for Py 2.7, as pycryptodome-3.23.0 missing 64-bit Windows binary (only has 32-bit)
     # TODO python -m pip install -e .
@@ -85,9 +83,33 @@ fernet.Configuration.ttl         = 60
 
 ## Tests
 
+Note tests require the Fernet spec and samples, in a git checkout issue:
+
+    git submodule update --init
+
 Run ```tests.sh``` to run the unit tests. I.e.:
 
     python -m unittest discover -s test
 
 Note that one test checking for bad padding in a token will
 fail when running with Pycrypto.
+
+Current results/failure with pycryptodome:
+
+```
+(py2venv) C:\code\py\enc\fernet-py>python -m unittest discover -s test
+.Resulting message: ?
+F.....................
+======================================================================
+FAIL: test_invalid_tokens (acceptance.test_verify.TestVerifySpec)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\code\py\enc\fernet-py\test\acceptance\test_verify.py", line 47, in test_invalid_tokens
+    print("Resulting message: %s" % verifier.message)
+AssertionError: InvalidToken not raised
+
+----------------------------------------------------------------------
+Ran 23 tests in 0.045s
+
+FAILED (failures=1)
+```
