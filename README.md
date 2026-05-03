@@ -13,13 +13,23 @@ is configured as a dependency since M2Crypto requires the presence of SWIG for c
 If M2Crypto (>=0.21.1) is installed it will be used, otherwise Pycrypto (>=2.6.1) will
 be used.
 
-pip install fernet
+pip install fernet  # TODO review, https://github.com/heroku/fernet-py/issues/1 suggests this is not possible
+
+    pip install -e git+https://github.com/italian-licorice/fernet-py.git#egg=fernet-py
+
+From local source checkout
+
+TODO doc submodule checkout
+
+    python -m pip install -r requirements.txt
+    # pip install pycryptodome==3.7.2  # Needed for Py 2.7, as pycryptodome-3.23.0 missing 64-bit Windows binary (only has 32-bit)
+    # TODO python -m pip install -e .
 
 ## Installation on Heroku
 
 If you want to use M2Crypto you can try this buildpack which supports building the M2Cryto package:
   https://github.com/guybowden/heroku-buildpack-python-paybox
-  
+
 ## Usage
 
 Both client and server must share a secret.
@@ -56,5 +66,9 @@ fernet.Configuration.ttl         = 60
 
 ## Tests
 
-Run ```tests.sh``` to run the unit tests. Note that one test checking for bad padding in a token will
+Run ```tests.sh``` to run the unit tests. I.e.:
+
+    python -m unittest discover -s test
+
+Note that one test checking for bad padding in a token will
 fail when running with Pycrypto.

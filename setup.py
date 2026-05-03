@@ -8,6 +8,8 @@ try:
 except ImportError:
     from distutils.core import setup
 
+is_py3 = sys.version_info >= (3,)
+
 if sys.argv[-1] == 'publish':
     os.system('python setup.py sdist upload')
     sys.exit()
@@ -17,13 +19,17 @@ packages = [
 ]
 
 requires = [
-    'pycrypto>=2.6.1',
 #    'M2Crypto>=0.21.1',
     'py>=1.4.18',
-    'python-dateutil>=2.2',
-    'should-dsl>=2.1.2',
-    'six>=1.4.1'
+    'python-dateutil>=2.2',  # TODO only used with tests
+    'should-dsl>=2.1.2',  # TODO only used with tests
+    'six>=1.4.1'  # TODO NOT used
 ]
+
+if is_py3:
+    requires.append('pycryptodome')
+else:  # assume is_py2
+    requires.append('pycryptodome==3.7.2')  # TODO review, see if there is a later one
 
 with open('README.md') as f:
     readme = f.read()

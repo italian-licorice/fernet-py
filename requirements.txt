@@ -1,6 +1,7 @@
-pycrypto>=2.6.1
+pycryptodome; python_version > "2.7"
+pycryptodome==3.7.2; python_version < "2.7"  # TODO review, see if there is a later one
 #M2Crypto>=0.21.1
 py>=1.4.18
-python-dateutil>=2.2
-should-dsl>=2.1.2
-six>=1.4.1
+python-dateutil>=2.2  # TODO review, only used for tests
+should-dsl>=2.1.2  # TODO review, only used for tests
+six>=1.4.1  # TODO review, **not** used
